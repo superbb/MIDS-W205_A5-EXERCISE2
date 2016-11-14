@@ -26,7 +26,7 @@ tcount=# \q
 ## Log into w205
 ```
 [root@... ~]# su - w205
-[w205@... ]$ cd exercise_2/ex2/ EX2Tweetwordcount/
+[w205@... ]$ cd ex2/Tweetwordcount/
 ```
 exit using ctrl C
 

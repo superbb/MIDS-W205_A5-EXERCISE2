@@ -46,8 +46,8 @@ class WordCounter(Bolt):
         cur.close()
         conn.close()
         # Log the count - just to see the topology running
-        #self.log('%s: int: %d' % (word, self.counts[word]))
-        print('%s: int: %d db: %d' % (word, self.counts[word], db_count))
+        self.log("%s: int: %d" % (word, self.counts[word]))
+        print(word, "local", self.counts[word],"db", db_count)
 
 
 #if __name__ == '__main__':
