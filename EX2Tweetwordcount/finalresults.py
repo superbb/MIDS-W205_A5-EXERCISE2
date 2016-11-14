@@ -22,7 +22,9 @@ def wordcounts(word):
         try:
             cur.execute("SELECT word, count FROM Tweetwordcount WHERE word = %s" % (word))
             rec = cur.fetchone()
+            print('Total number of occurences of "%s": %d' % (rec[0],rec[1]))
         except psycopg2.ProgrammingError:
+            print('Total number of occurences of "%s": %d' % (word,0))
     cur.close()
     conn.close()
     return True

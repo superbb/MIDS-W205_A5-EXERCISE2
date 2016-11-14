@@ -14,6 +14,7 @@ def hist(k1,k2):
     conn = psycopg2.connect(database="tcount", user="postgres", password="pass", host="localhost", port="5432")
     cur = conn.cursor()
     try:
+        cur.execute("SELECT word, count FROM Tweetwordcount ORDER BY word ASC WHERE count BETWEEN %d AND %d ORDER BY count DESC" % (k1,k2))
         records = cur.fetchall()    
         for rec in records:
             print (rec[0], rec[1])
@@ -28,6 +29,12 @@ if __name__ == '__main__':
     print sys.argv, len(sys.argv)
     try:
         if(len(sys.argv) == 2):
+            args = sys.argv[1].split(',')
+            k1 = int(args[0])
+            k2 = int(args[1])
+        elif(len(sys.argv) == 3):
+            k1 = int(sys.argv[1].split(',')[0])
+            k2 = int(sys.argv[2])
         if(k1 > k2):
             raise Exception()
         hist(k1,k2)
