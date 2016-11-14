@@ -25,13 +25,17 @@ class StdOutListener(StreamListener):
         
 
     def on_data(self, data):
+        #print(3333333333333333333333333333333333)
+        #print(data)
         try:
             self.endTime = time()
             self.elapsedTime = self.endTime - self.startTime
             if self.elapsedTime <= self.timer:
                 self.dataJson =simplejson.loads(data[:-1])
                 self.dataJsonText = self.dataJson["text"].lower()
+                #print(2222222222222222,self.dataJsonText)
                 self.count += 1
+                #print(self.count)
                 if "Hello" in self.dataJsonText:
                     print self.dataJsonText
 
@@ -54,8 +58,8 @@ class StdOutListener(StreamListener):
 
 if __name__ == '__main__':
     # to collect the data for 1 min
-    l = StdOutListener(60)
-    mystream = tweepy.Stream(auth, l, timeout=60)
+    l = StdOutListener(15) # was 60 here and below
+    mystream = tweepy.Stream(auth, l, timeout=15)
     mystream.sample()
 
 

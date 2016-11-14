@@ -14,19 +14,20 @@ def hist(k1,k2):
     conn = psycopg2.connect(database="tcount", user="postgres", password="pass", host="localhost", port="5432")
     cur = conn.cursor()
     try:
-        cur.execute("SELECT word, count FROM Tweetwordcount ORDER BY word ASC WHERE count BETWEEN %d AND %d ORDER BY count DESC" % (k1,k2))
+        cur.execute("SELECT word, count FROM Tweetwordcount WHERE count BETWEEN %d AND %d ORDER BY count DESC" % (k1,k2))
         records = cur.fetchall()    
-        for rec in records:
-            print (rec[0], rec[1])
-    
+        if(records):
+            for rec in records:
+                print rec[0], rec[1]
+        else:
+            print("No words between %d and %d. Try another range." % (k1,k2))
     except psycopg2.ProgrammingError:
-        print("No words between %d and %d. Try another range.", % (k1,k2))
+        print("Something wrong with the query: \nSELECT word, count FROM Tweetwordcount WHERE count BETWEEN %d AND %d ORDER BY count DESC" % (k1,k2))
     cur.close()
     conn.close()
     return True
 
 if __name__ == '__main__':
-    print sys.argv, len(sys.argv)
     try:
         if(len(sys.argv) == 2):
             args = sys.argv[1].split(',')
@@ -39,4 +40,4 @@ if __name__ == '__main__':
             raise Exception()
         hist(k1,k2)
     except (ValueError, NameError, Exception):
-        print('Error: User "python histogram.py k1,k2" where k1 and k2 are the inclusive lower and upper bounds of thehistogram. For example "python histogram.py 143,999"')
+        print('Error: Use "python histogram.py k1,k2" where k1 and k2 are the inclusive lower and upper bounds of the histogram.\nFor example "python histogram.py 143,999"')
