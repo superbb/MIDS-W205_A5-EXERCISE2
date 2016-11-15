@@ -60,4 +60,3 @@ Exit using ctrl C
 * screenshots/screenshot-finalresults.png
 * screenshots/screenshot-finalresults-and-histogram.png
 * screenshots/screenshot-break-after-longer-for-plot.png  
-
