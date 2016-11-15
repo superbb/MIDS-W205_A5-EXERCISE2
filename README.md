@@ -49,15 +49,15 @@ Exit using ctrl C
   * `python histogram.py k1,k2` returns words and counts betweem k1, k2
 
 ## Other Files
-plot.png - Plot after a longer run
-plot-quick.png - Plot after a minute or two
+* plot.png - Plot after a longer run
+* plot-quick.png - Plot after a minute or two
 
 ## Screenshots
-screenshots/screenshot-start.png
-screenshots/screenshot-running.png
-screenshots/screenshot-break.png
-screenshots/screenshot-finalresults-word.png
-screenshots/screenshot-finalresults.png
-screenshots/screenshot-finalresults-and-histogram.png
-screenshots/screenshot-break-after-longer-for-plot.png  
+* screenshots/screenshot-start.png
+* screenshots/screenshot-running.png
+* screenshots/screenshot-break.png
+* screenshots/screenshot-finalresults-word.png
+* screenshots/screenshot-finalresults.png
+* screenshots/screenshot-finalresults-and-histogram.png
+* screenshots/screenshot-break-after-longer-for-plot.png  
 
