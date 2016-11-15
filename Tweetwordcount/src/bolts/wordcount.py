@@ -16,7 +16,7 @@ class WordCounter(Bolt):
         self.counts[word] += 1
         # Emit the tuple
         self.emit([word, self.counts[word]])
-        print(word, self.counts[word])
+        #print(word, self.counts[word])
         # Write codes to increment the word count in Postgres
         # Use psycopg to interact with Postgres
         # Database name: Tcount 
@@ -26,28 +26,28 @@ class WordCounter(Bolt):
         # See readme for setup instructions
         conn = psycopg2.connect(database="tcount", user="postgres", password="pass", host="localhost", port="5432")
         cur = conn.cursor()
-        cur.execute("SELECT count FROM Tweetwordcount WHERE word = '%s'" % (word))
+        cur.execute("SELECT count FROM Tweetwordcount WHERE word = %s", (word,))
         db_count = cur.fetchone()
         conn.commit()
 
 
-        print(db_count)
+        #print(db_count)
 
         if db_count:
             #print("\n\na\n\n(UPDATE Tweetwordcount SET count = %d  WHERE word = '%s'" % (self.counts[word], word))
-            cur.execute("UPDATE Tweetwordcount SET count = %d  WHERE word = '%s'" % (self.counts[word],word))
+            cur.execute("UPDATE Tweetwordcount SET count = %s  WHERE word = %s", (self.counts[word],word))
         else:
             #print("\n\nb\n\n(INSERT INTO Tweetwordcount (word, count) VALUES ('%s',%d)" % (word, self.counts[word]))
             db_count = 0
-            cur.execute("INSERT INTO Tweetwordcount (word, count) VALUES ('%s',%d)" % (word,self.counts[word]))
+            cur.execute("INSERT INTO Tweetwordcount (word, count) VALUES (%s,%s)", (word,self.counts[word]))
 
         #print("\n\nc\n\n")
         conn.commit()
         cur.close()
         conn.close()
         # Log the count - just to see the topology running
-        self.log("%s: int: %d" % (word, self.counts[word]))
-        print(word, "local", self.counts[word],"db", db_count)
+        self.log("%s: %d" % (word, self.counts[word]))
+        #print(word, "local", self.counts[word],"db", db_count)
 
 
 #if __name__ == '__main__':
